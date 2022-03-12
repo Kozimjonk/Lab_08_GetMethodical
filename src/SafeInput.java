@@ -32,7 +32,7 @@ public class SafeInput
             System.out.println("\n" + prompt + ":");
             if (pipe.hasNextInt()) {
                 userInput = pipe.nextInt();
-                pipe.nextLine();
+                pipe.nextLine(); 
                 keepGoing = true;
             } else {
                 trash = pipe.nextLine();
@@ -57,16 +57,18 @@ public class SafeInput
         boolean keepGoing = false;
         do {
             System.out.println("\n" + prompt + ":");
-            if (pipe.hasNextInt()) {
+            if (pipe.hasNextInt())
+            {
                 userInput = pipe.nextInt();
                 pipe.nextLine();
                 keepGoing = true;
             }
-            else {
+            else
+            {
                 trash = pipe.nextLine();
-                System.out.println(trash + "It is not valid number, try again!");
+                System.out.println("(" + trash + ")" + " It is not valid number, try again!");
             }
-        } while (!keepGoing);
+        }while (!keepGoing);
 
 
         return (int) userInput;
@@ -78,19 +80,26 @@ public class SafeInput
      * @param prompt prompt for the user
      * @return a String response that is not zero length
      */
-    public static int getRangedInt(Scanner pipe, String prompt, int low, int high) {
+    public static int getRangedInt(Scanner pipe, String prompt, int low, int high)
+    {
         int retInt = 0;
-        String trash;
+        String trash = "";
         boolean keepGoing = false;
 
-        do {
+        do
+        {
             System.out.println("\n" + prompt + ":");
             if (pipe.hasNextInt()) ;
             {
                 retInt = pipe.nextInt();
-                if (retInt >= low && retInt <= high) {
+                pipe.nextLine();
+                if (retInt >= low && retInt <= high)
+                {
                     keepGoing = true;
-                } else {
+                }
+                else
+                {
+                    System.out.println("You entered \"" + false + "\"");
                     System.out.println("Please enter number range between" + low + " and " + high + "!");
 
                 }
@@ -99,6 +108,64 @@ public class SafeInput
 
         } while(!keepGoing);
         return retInt;
+    }
+    /**
+     * @param pipe   a Scanner opened to read from System.in
+     * @param prompt prompt for the user
+     * @return a String response that is not zero length
+     */
+    public static double getRangedDouble(Scanner pipe, String prompt, double low, double high)
+    {
+        double retDouble = 0;
+        boolean validDouble = false;
+        String trash = "";
+        do {
+            System.out.println("\n" + prompt);
+            if (pipe.hasNextDouble())
+            {
+                retDouble = pipe.nextDouble();
+                pipe.nextLine();
+                if (retDouble >= low && retDouble <= high)
+                {
+                    validDouble = true;
+                }
+                else
+                {
+                    System.out.println("You entered \"" + retDouble + "\"");
+                    System.out.println("Enter a valid number [" + low + "-" + high + "]");
+                }
+            }
+            else
+            {
+                trash = pipe.nextLine();
+                System.out.println("Enter a valid double, NOT \"" + trash + "\"");
+            }
+
+        }while(!validDouble);
+
+        return retDouble;
+
+    }
+    public static boolean getYNConfirm(Scanner pipe, String prompt)
+    {
+        boolean retYN = false;
+        boolean validInput = false;
+        String response;
+        do {
+            System.out.println("\n" + prompt);
+            response = pipe.nextLine();
+            if (response.equalsIgnoreCase("Y"))
+            {
+                retYN = false;
+                validInput = true;
+            }
+            else
+            {
+                System.out.println("Invalid Input. Enter [Y/N] ");
+            }
+
+        }while(!validInput);
+        return retYN;
     }
     /**
      * @param pipe   a Scanner opened to read from System.in
@@ -129,7 +196,19 @@ public class SafeInput
         return retVal;
 
     }
-}
+    public static void prettyHeader(String msg)
+    {
+        int whiteSpace = (53 - msg.length()) / 2;
+        for (int x = 0; x <= whiteSpace; x++)
+        {
+            System.out.println(" ");
+        }
+        System.out.println("***");
+        for (int x = 0; x <= 27; x++);
+    }
+
+    }
+
 
 
 
